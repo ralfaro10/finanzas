@@ -1,0 +1,15 @@
+/Users/ralfaro/Projects/finanzas/finanzas/bin/Debug/net7.0/finanzas
+/Users/ralfaro/Projects/finanzas/finanzas/bin/Debug/net7.0/finanzas.deps.json
+/Users/ralfaro/Projects/finanzas/finanzas/bin/Debug/net7.0/finanzas.runtimeconfig.json
+/Users/ralfaro/Projects/finanzas/finanzas/bin/Debug/net7.0/finanzas.dll
+/Users/ralfaro/Projects/finanzas/finanzas/bin/Debug/net7.0/finanzas.pdb
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.csproj.AssemblyReference.cache
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.AssemblyInfoInputs.cache
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.AssemblyInfo.cs
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.csproj.CoreCompileInputs.cache
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.dll
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/refint/finanzas.dll
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.pdb
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/finanzas.genruntimeconfig.cache
+/Users/ralfaro/Projects/finanzas/finanzas/obj/Debug/net7.0/ref/finanzas.dll
