@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +11,7 @@ namespace GestionFinanzasConsola
 
     class Program
     {
-        static List<Usuario> usuarios = LeerArchivoUsuarios();
+        //static List<Usuario> usuarios = LeerArchivoUsuarios();
         static Usuario usuarioActual = new(); 
         static List<IngresoMensual> ingresosMensuales = new();
         static List<GastoFijo> gastosFijos = new();
@@ -19,6 +19,9 @@ namespace GestionFinanzasConsola
 
         static void Main()
         {
+            var ubicacionArchivoUsuarios = @"D:\Development\Rod_BitBucket\personal\finanzas-main\usuarios.txt";
+            var usuarios = LeerArchivoUsuarios(ubicacionArchivoUsuarios);
+
             bool continuar = true;
             while (continuar)
             {
@@ -32,10 +35,10 @@ namespace GestionFinanzasConsola
                 switch (opcionMenuPrincipal)
                 {
                     case "1":
-                        CrearUsuario();
+                        CrearUsuario(ubicacionArchivoUsuarios, usuarios);
                         break;
                     case "2":
-                        IniciarSesion();
+                        IniciarSesion(usuarios);
                         break;
                     case "3":
                         continuar = false;
@@ -47,7 +50,7 @@ namespace GestionFinanzasConsola
             }
         }
 
-        static void CrearUsuario()
+        static void CrearUsuario(string ubicacionArchivoUsuarios, List<Usuario> usuarios)
         {
             var usuarioAgregado = false;
 
@@ -58,7 +61,7 @@ namespace GestionFinanzasConsola
                 Console.Write("Ingrese una contraseña: ");
                 var contraseña = Console.ReadLine();
 
-                if (usuarios.Where(x => x.NombreUsuario == nombreUsuario).FirstOrDefault() != null)
+                if (usuarios!=null && usuarios.Where(x => x.NombreUsuario == nombreUsuario).FirstOrDefault() != null)
                 {
                     Console.WriteLine("Usuario ya existente");
                 }
@@ -68,7 +71,7 @@ namespace GestionFinanzasConsola
 
                     usuarios.Add(new Usuario { NombreUsuario = nombreUsuario, Contraseña = contraseña });
 
-                    GuardarUsuariosEnArchivo();
+                    GuardarUsuariosEnArchivo(ubicacionArchivoUsuarios, usuarios);
 
                     Console.WriteLine("Usuario creado exitosamente.");
                 }
@@ -77,7 +80,7 @@ namespace GestionFinanzasConsola
 
         }
 
-        static void IniciarSesion()
+        static void IniciarSesion(List<Usuario> usuarios)
         {
             Console.Write("Nombre de Usuario: ");
             var nombreUsuario = Console.ReadLine();
@@ -101,6 +104,8 @@ namespace GestionFinanzasConsola
         static void MenuPrincipal()
         {
             bool autenticado = true;
+            var ubicacionArchivoCSV = @"D:\Development\Rod_BitBucket\personal\finanzas-main\balanceGeneral.csv";
+
             while (autenticado)
             {
                 Console.WriteLine("===== Menú Principal =====");
@@ -128,7 +133,7 @@ namespace GestionFinanzasConsola
                         IngresarCompraAdicional();
                         break;
                     case "5":
-                        GenerarInforme();
+                        GenerarInforme(ubicacionArchivoCSV);
                         break;
                     case "6":
                         autenticado = false;
@@ -141,10 +146,8 @@ namespace GestionFinanzasConsola
             }
         }
 
-        static void GuardarUsuariosEnArchivo()
+        static void GuardarUsuariosEnArchivo(string ubicacionArchivoUsuarios, List<Usuario> usuarios)
         {
-            //var sb = new StringBuilder();
-
             var sb = new List<string>();
 
             foreach (var item in usuarios)
@@ -153,12 +156,12 @@ namespace GestionFinanzasConsola
                 sb.Add(usuario);
             }
 
-            File.WriteAllLines("/Users/ralfaro/Documents/c/usuarios.txt", sb.ToArray());
+            File.WriteAllLines(ubicacionArchivoUsuarios, sb.ToArray());
         }
 
-        static List<Usuario> LeerArchivoUsuarios()
+        static List<Usuario> LeerArchivoUsuarios(string ubicacionArchivoUsuarios)
         {
-            var listaUsuarios = File.ReadAllLines("/Users/ralfaro/Documents/c/usuarios.txt");
+            var listaUsuarios = File.ReadAllLines(ubicacionArchivoUsuarios);
             var listaUsuariosArchivo = new List<Usuario>();
 
             if (listaUsuarios != null)
@@ -221,7 +224,7 @@ namespace GestionFinanzasConsola
             Console.WriteLine("Compra adicional registrada exitosamente.");
         }
 
-        static void GenerarInforme()
+        static void GenerarInforme(string ubicacionArchivoCSV)
         {
             Console.Clear();
 
@@ -230,16 +233,6 @@ namespace GestionFinanzasConsola
 
             totalIngresos = ingresosMensuales.Sum(x=>x.Cantidad);
             totalGastosFijos = gastosFijos.Sum(x => x.Cantidad);
-
-            //foreach (var ingreso in ingresosMensuales)
-            //{
-            //    totalIngresos += ingreso.Cantidad;
-            //}
-
-            //foreach (var gasto in gastosFijos)
-            //{
-            //    totalGastosFijos += gasto.Cantidad;
-            //}
 
             decimal dineroDisponible = totalIngresos - totalGastosFijos - ahorroMensual;
 
@@ -271,7 +264,7 @@ namespace GestionFinanzasConsola
             Console.WriteLine($"Balance: {dineroDisponible}");
             Console.WriteLine("Archivo .csv creado con informacion");
 
-            using (var w = new StreamWriter("/Users/ralfaro/Documents/c/balance.csv"))
+            using (var w = new StreamWriter(ubicacionArchivoCSV))
             {
                 var reporte = new StringBuilder();
                 reporte
